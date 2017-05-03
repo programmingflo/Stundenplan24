@@ -27,7 +27,7 @@ class ServerConnection extends AsyncTask<String,Void,JSONObject> {
         String urlstring = this.c.getResources().getString(R.string.baseurl) + school;
         InputStream is = null;
 
-        String content = "";
+        //String content = "";
 
         try{
             URL url = new URL(urlstring);
@@ -37,17 +37,17 @@ class ServerConnection extends AsyncTask<String,Void,JSONObject> {
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             conn.connect();
-            int response = conn.getResponseCode();
-            Log.d("146s", "response: " + response);
+            //int response = conn.getResponseCode();
+            //Log.d("146s", "response: " + response);
             is = conn.getInputStream();
 
             //Convert the InputStream into a String
             String contentAsString = convertStreamToString(is);
             Log.d("146s","content: "+contentAsString);
-            content=contentAsString;
+            //content=contentAsString;
             return contentAsString;
         }catch (IOException e){
-            Log.d("146s","content: "+content);
+            //Log.d("146s","content: "+content);
             Log.d("146s",e.getMessage());
         }finally {
             if(is != null){
