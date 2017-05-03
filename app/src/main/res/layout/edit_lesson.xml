@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="240dp" android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/saveEditButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@+id/closeEditButton"
+        android:layout_toStartOf="@+id/closeEditButton"
+        android:contentDescription="@string/save"
+        android:src="@android:drawable/ic_menu_save" />
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/closeEditButton"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/close" />
+
+    <EditText
+        android:id="@+id/lesson_edit_fach"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/closeEditButton"
+        android:hint="@string/fach"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/lesson_edit_raum"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lesson_edit_fach"
+        android:layout_toEndOf="@id/lesson_edit_fach"
+        android:layout_toRightOf="@id/lesson_edit_fach"
+        android:hint="@string/raum"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/lesson_edit_lehrer"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lesson_edit_raum"
+        android:layout_toEndOf="@id/lesson_edit_raum"
+        android:layout_toRightOf="@id/lesson_edit_raum"
+        android:hint="@string/lehrer"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+</RelativeLayout>

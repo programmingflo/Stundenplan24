@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="240dp"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@+id/closeButton"
+        android:layout_toStartOf="@+id/closeButton"
+        android:contentDescription="@string/edit"
+        android:src="@android:drawable/ic_menu_edit" />
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/closeButton"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/close" />
+
+    <TextView
+        android:id="@+id/lesson_fach"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/closeButton"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lesson_raum"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lesson_fach"
+        android:layout_toEndOf="@id/lesson_fach"
+        android:layout_toRightOf="@id/lesson_fach"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/lesson_lehrer"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lesson_raum"
+        android:layout_toEndOf="@id/lesson_raum"
+        android:layout_toRightOf="@id/lesson_raum"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/lesson_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lesson_fach"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+</RelativeLayout>
