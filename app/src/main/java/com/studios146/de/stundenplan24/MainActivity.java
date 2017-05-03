@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
     Context context = this;
+    private ScheduleDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +68,14 @@ public class MainActivity extends AppCompatActivity{
         for(Integer i = 0; i < 48;i++){
             Log.d("146s.main.66","schedule "+schedule[i]);
         }*/
-        SharedPreferences schedulePreferences = this.getSharedPreferences("schedule", Context.MODE_PRIVATE);
+
+        Lesson testLesson = new Lesson("11.2","1","Physik","Niekau","S011",null);
+        Log.d("146s", "testLesson "+testLesson.toString());
+
+        dataSource = new ScheduleDataSource(this);
+
         //TODO: Convert 2-dimensional Array to 1-dimensional
-        GridView gridView = (GridView) findViewById(R.id.schedule_main);
+        /*GridView gridView = (GridView) findViewById(R.id.schedule_main);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,schedule);
         //TODO: Create a layout for item of gridview
         gridView.setAdapter(adapter);
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
 
                 dialog.show();
             }
-        });
+        });*/
     }
 
     @Override

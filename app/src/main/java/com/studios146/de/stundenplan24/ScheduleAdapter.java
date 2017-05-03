@@ -39,7 +39,7 @@ public class ScheduleAdapter extends BaseAdapter {
         TextView textView;
         if(convertView == null){
             textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams());
+            //textView.setLayoutParams(new GridView.LayoutParams());
         }
         return null;
     }
