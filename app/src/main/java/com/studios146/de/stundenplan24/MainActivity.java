@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity{
     Context context = this;
     private ScheduleDataSource dataSource;
+    String LOG_TAG = "146s/"+MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,13 @@ public class MainActivity extends AppCompatActivity{
         Log.d("146s", "testLesson "+testLesson.toString());
 
         dataSource = new ScheduleDataSource(this);
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
+
 
         //TODO: Convert 2-dimensional Array to 1-dimensional
         /*GridView gridView = (GridView) findViewById(R.id.schedule_main);
