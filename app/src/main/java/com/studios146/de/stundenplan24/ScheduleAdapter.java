@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 /**
  * Created by FM on 03.05.2017.
+ *
  */
 
 public class ScheduleAdapter extends BaseAdapter {
@@ -39,7 +40,7 @@ public class ScheduleAdapter extends BaseAdapter {
         TextView textView;
         if(convertView == null){
             textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams());
+            //textView.setLayoutParams(new GridView.LayoutParams());
         }
         return null;
     }
