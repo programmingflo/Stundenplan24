@@ -6,6 +6,7 @@ package com.studios146.de.stundenplan24;
  */
 
 class Lesson {
+    private final long id;
     private final String klasse;
     private final String stunde;
     private final String fach;
@@ -14,7 +15,7 @@ class Lesson {
     private final String info;
 
     /**
-     *
+     * @param id ID
      * @param klasse Klasse
      * @param stunde Stunde
      * @param fach Fach
@@ -22,7 +23,8 @@ class Lesson {
      * @param raum Raum
      * @param info Info
      */
-    Lesson(String klasse, String stunde, String fach, String lehrer, String raum, String info) {
+    Lesson(long id, String klasse, String stunde, String fach, String lehrer, String raum, String info) {
+        this.id = id;
         this.klasse = klasse;
         this.stunde = stunde;
         this.fach = fach;
