@@ -13,16 +13,30 @@ import android.util.Log;
 public class ScheduleDbHelper extends SQLiteOpenHelper{
     private static final String LOG_TAG = "146s/"+ ScheduleDbHelper.class.getSimpleName();
 
-    public static final String SQL_CREATE = "CREATE TABLE schedule " +
-            "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "klasse TEXT NOT NULL," +
-            "stunde TEXT NOT NULL," +
-            "fach TEXT NOT NULL," +
-            "lehrer TEXT NOT NULL," +
-            "raum TEXT NOT NULL";
+    public static final String DB_NAME = "schedules";
+    public static final int DB_VERSION = 1;
+
+    public static final String TABLE_SCHEDULE = "schedule";
+
+
+    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_KLASSE = "klasse";
+    public static final String COLUMN_STUNDE = "stunde";
+    public static final String COLUMN_FACH = "fach";
+    public static final String COLUMN_LEHRER = "lehrer";
+    public static final String COLUMN_RAUM = "raum";
+
+
+    public static final String SQL_CREATE = "CREATE TABLE" + TABLE_SCHEDULE  +
+            "("+ COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_KLASSE +" TEXT NOT NULL," +
+            COLUMN_STUNDE +" TEXT NOT NULL," +
+            COLUMN_FACH +" TEXT NOT NULL," +
+            COLUMN_LEHRER +" TEXT NOT NULL," +
+            COLUMN_RAUM +" TEXT NOT NULL";
 
     public ScheduleDbHelper(Context context){
-        super(context,"schedule",null,1);
+        super(context,DB_NAME,null,DB_VERSION);
         Log.d(LOG_TAG,"DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
     }
     @Override
