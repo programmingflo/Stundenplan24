@@ -6,13 +6,13 @@ package com.studios146.de.stundenplan24;
  */
 
 class Lesson {
-    private final long id;
-    private final String klasse;
-    private final String stunde;
-    private final String fach;
-    private final String lehrer;
-    private final String raum;
-    private final String info;
+    final long id;
+    final String klasse;
+    final String stunde;
+    final String fach;
+    final String lehrer;
+    final String raum;
+    final String info;
 
     /**
      * @param id ID
