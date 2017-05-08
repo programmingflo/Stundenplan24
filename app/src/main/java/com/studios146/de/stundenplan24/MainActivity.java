@@ -62,79 +62,8 @@ public class MainActivity extends AppCompatActivity{
             Log.d("com.146s.miit", e.toString());
         }
 
-        /*String[] schedule = new String[48];
-        Arrays.fill(schedule,"");
-        Integer temp;
-        for(Integer i = 0; i < 8; i++){
-            temp = i+1;
-            schedule[i*6] = temp.toString();
-        }
-        for(Integer i = 0; i < 48;i++){
-            Log.d("146s.main.66","schedule "+schedule[i]);
-        }*/
-        //SharedPreferences schedulePreferences = this.getSharedPreferences("schedule", Context.MODE_PRIVATE);
-
         ScheduleTableLayout scheduleTable = (ScheduleTableLayout) findViewById(R.id.schedule_main);
         scheduleTable.setTimetable(new Timetable(this.context));
-
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,schedule);
-        //TODO: Create a layout for item of gridview
-
-        //gridView.setAdapter(adapter);
-        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("146s.main.68","selected item: "+((TextView)view).getText());
-                // editDialog
-                final Dialog editdialog = new Dialog(context);
-                editdialog.setContentView(R.layout.edit_lesson);
-
-                ImageButton saveButton = (ImageButton) editdialog.findViewById(R.id.saveEditButton);
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                     //TODO: save lesson details
-                    }
-                });
-                ImageButton closeEditButton = (ImageButton) editdialog.findViewById(R.id.closeEditButton);
-                closeEditButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        editdialog.dismiss();
-                    }
-                });
-
-                // detailDialog
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_lesson);
-
-                TextView textFach = (TextView) dialog.findViewById(R.id.lesson_fach);
-                textFach.setText("Fach");
-                TextView textRaum = (TextView) dialog.findViewById(R.id.lesson_raum);
-                textRaum.setText("Raum");
-                TextView textLehrer = (TextView) dialog.findViewById(R.id.lesson_lehrer);
-                textLehrer.setText("Lehrer");
-                TextView textInfo = (TextView) dialog.findViewById(R.id.lesson_info);
-                textInfo.setText("Info");
-
-                ImageButton editButton = (ImageButton) dialog.findViewById(R.id.editButton);
-                editButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        editdialog.show();
-                    }
-                });
-                ImageButton closeButton = (ImageButton) dialog.findViewById(R.id.closeButton);
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-            }
-        });*/
     }
 
     private void showAllListEntries(){
