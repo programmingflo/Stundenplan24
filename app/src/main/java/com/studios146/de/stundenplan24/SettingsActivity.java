@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -61,10 +62,26 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             this.arraySchoolIDs = new String[]{""};
         }
 
+        /*Create Spinner and select item*/
         Spinner spinner = (Spinner) findViewById(R.id.spinnerSchools);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arraySchools);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
+
+        SharedPreferences preferences = this.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String schoolID = preferences.getString("schoolID","");
+        Integer index = 0;
+        Log.d("146s.set","schoolID: "+schoolID);
+        for (int i=0; i<arraySchoolIDs.length;i++){
+            if(schoolID.equals(arraySchoolIDs[i])){
+                index = i;
+            }
+        }
+        String schoolName = arraySchools[index];
+        if(!schoolID.isEmpty()){
+            int spinnerPosition = arrayAdapter.getPosition(schoolName);
+            spinner.setSelection(spinnerPosition);
+        }
     }
 
     @Override
