@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -67,13 +69,16 @@ public class MainActivity extends AppCompatActivity{
         for(Integer i = 0; i < 48;i++){
             Log.d("146s.main.66","schedule "+schedule[i]);
         }*/
-        SharedPreferences schedulePreferences = this.getSharedPreferences("schedule", Context.MODE_PRIVATE);
-        //TODO: Convert 2-dimensional Array to 1-dimensional
-        GridView gridView = (GridView) findViewById(R.id.schedule_main);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,schedule);
+        //SharedPreferences schedulePreferences = this.getSharedPreferences("schedule", Context.MODE_PRIVATE);
+
+        ScheduleTableLayout scheduleTable = (ScheduleTableLayout) findViewById(R.id.schedule_main);
+        scheduleTable.setTimetable(new Timetable(this.context));
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,schedule);
         //TODO: Create a layout for item of gridview
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //gridView.setAdapter(adapter);
+        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("146s.main.68","selected item: "+((TextView)view).getText());
@@ -126,7 +131,7 @@ public class MainActivity extends AppCompatActivity{
 
                 dialog.show();
             }
-        });
+        });*/
     }
 
     @Override
