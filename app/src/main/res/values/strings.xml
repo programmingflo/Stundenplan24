@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Stundenplan 24</string>
     <string name="baseurl">https://vpman.146programming.de</string>
-    <string name="mainActionBarTitle">Settings</string>
-    <string name="close">Close</string>
-    <string name="edit">Edit</string>
-    <string name="save">Save</string>
+    <string name="mainActionBarTitle">Einstellung</string>
+    <string name="close">Schließen</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="save">Speichern</string>
     <string name="fach">Fach</string>
     <string name="raum">Raum</string>
     <string name="lehrer">Lehrer</string>
+    <string name="klasse">Klasse</string>
 </resources>
