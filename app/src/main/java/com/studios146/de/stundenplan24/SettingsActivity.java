@@ -8,14 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -68,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        SharedPreferences preferences = this.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        final SharedPreferences preferences = this.getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String schoolID = preferences.getString("schoolID","");
         Integer index = 0;
         Log.d("146s.set","schoolID: "+schoolID);
@@ -82,6 +84,21 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             int spinnerPosition = arrayAdapter.getPosition(schoolName);
             spinner.setSelection(spinnerPosition);
         }
+
+        //Create EditText and saveButton for Klasse
+        final EditText editTextKlasse = (EditText) findViewById(R.id.editTextKlasse);
+        editTextKlasse.setText(preferences.getString("klasse",""));
+        Button saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("klasse",editTextKlasse.getText().toString());
+                editor.apply();
+                Toast toast = Toast.makeText(getApplicationContext(),"Gespeichert!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override
