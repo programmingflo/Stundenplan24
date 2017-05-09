@@ -2,7 +2,7 @@ package com.studios146.de.stundenplan24;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -10,8 +10,9 @@ import android.widget.TextView;
  * Provides custom view to use in main GridView
  */
 
-public class LessonCellView extends RelativeLayout {
+public class LessonCellView extends LinearLayout {
     private Lesson lesson;
+    private Context context;
 
     TextView lessonTextView;
     TextView subjectTextView;
@@ -21,11 +22,12 @@ public class LessonCellView extends RelativeLayout {
 
     public LessonCellView(Context context, AttributeSet attrs){
         super(context, attrs);
+        this.context = context;
         init();
     }
 
     private void init() {
-        inflate(getContext(), R.layout.lesson_cell_view, this);
+        inflate(context, R.layout.lesson_cell_view, this);
         this.lessonTextView = (TextView)findViewById(R.id.lessonTextView);
         this.subjectTextView = (TextView)findViewById(R.id.subjectTextView);
         this.teacherTextView = (TextView)findViewById(R.id.teacherTextView);
@@ -45,4 +47,15 @@ public class LessonCellView extends RelativeLayout {
         roomTextView.setText(lesson.raum);
         infoTextView.setText(lesson.info);
     }
+
+    /*protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+
+        //this.setLayoutParams(new TableRow.LayoutParams(parentWidth,parentHeight / 8));
+
+        //setMeasuredDimension(parentWidth, parentHeight);
+    }*/
 }
