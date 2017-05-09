@@ -1,29 +1,33 @@
 package com.studios146.de.stundenplan24;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -34,8 +38,28 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*set Activity background
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        ImageView view = (ImageView) findViewById(R.id.backgroundImageView);
+        String backgroundPath = "http://www.carolinum.net/assets/images/5/schlossallee-1bd6a535.jpg";
+        String error="";
+        try{
+            InputStream inputStream = (InputStream) new URL(backgroundPath).getContent();
+            Drawable drawable = Drawable.createFromStream(inputStream,"146Programming");
+            if(drawable!= null) {
+                view.setBackground(drawable);
+                view.setScaleType(ImageView.ScaleType.CENTER);
+            }
+        }catch (IOException ex){
+            Log.d(LOG_TAG+"/background",ex.getMessage());
+            error = ex.getMessage();
+        }*/
         super.onCreate(savedInstanceState);
+        //setContentView(view);
         setContentView(R.layout.activity_main);
+        //Log.d(LOG_TAG+"/background","error: "+error);
 
         ServerConnection serverConnection = new ServerConnection(this);
 
