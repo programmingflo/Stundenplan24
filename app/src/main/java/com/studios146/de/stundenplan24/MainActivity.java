@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -97,12 +98,24 @@ public class MainActivity extends AppCompatActivity{
             Log.d("com.146s.main", e.toString());
         }
 
-        HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.scroll);
+        /*HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.scroll);
 
-        scrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        scrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));*/
 
-        ScheduleTableLayout scheduleTable = (ScheduleTableLayout) findViewById(R.id.schedule_main);
-        scheduleTable.setTimetable(new Timetable(this.context));
+        ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_main);
+        SchedulePagerAdapter schedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager());
+        schedulePagerAdapter.setTimetable(new Timetable(this.context));
+
+        viewPager.setAdapter(schedulePagerAdapter);
+        viewPager.addOnPageChangeListener(
+            new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    setTitle(getResources().getStringArray(R.array.weekdays)[position]);
+                }
+            }
+        );
+
 
         List<Lesson> substituteLessons = convertJSONtoLesson(jsonPlan);
         for(Lesson substituteLesson:substituteLessons) {
@@ -113,8 +126,7 @@ public class MainActivity extends AppCompatActivity{
     private void showAllListEntries(){
         List<Lesson> lessonList = dataSource.getAllLessons();
 
-        ArrayAdapter<Lesson> lessonArrayAdapter = new ArrayAdapter<Lesson>(
-                this,R.layout.support_simple_spinner_dropdown_item,lessonList);
+        ArrayAdapter<Lesson> lessonArrayAdapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,lessonList);
     }
 
     public List<Lesson> convertJSONtoLesson(JSONObject jsonObject){

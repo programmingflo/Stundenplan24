@@ -2,12 +2,14 @@ package com.studios146.de.stundenplan24;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 /**
  * Created by timgrohmann on 05.05.17.
  *
  */
 
-final class Timetable {
+final class Timetable implements Serializable{
     private Context context;
     private Lesson[] lessons;
 
@@ -21,7 +23,7 @@ final class Timetable {
         return l;
     }
 
-    Lesson getLessonForPosition(int day, int hour){
+    private Lesson getLessonForPosition(int day, int hour){
         return new Lesson(0,"1",Integer.toString(hour+1),"Deu","VOG","S207","Info");
     }
 }
