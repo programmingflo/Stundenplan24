@@ -50,4 +50,12 @@ public class LessonCellView extends LinearLayout {
         roomTextView.setText(lesson.raum);
         infoTextView.setText(lesson.info);
     }
+
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        View top = (ViewGroup) this.getParent();
+        View topTop = (ViewGroup) top.getParent();
+        setMeasuredDimension(topTop.getWidth() / 5, MeasureSpec.getSize(heightMeasureSpec));
+    }
 }
