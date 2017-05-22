@@ -26,6 +26,13 @@ public class ScheduleTableColumn extends Fragment {
     int day;
     Timetable t;
 
+    void setTimetable (Timetable t){
+        this.t = t;
+        ViewGroup contentGroup = (ViewGroup) getView();
+        if (contentGroup == null) return;
+        updateView(contentGroup);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,18 +42,26 @@ public class ScheduleTableColumn extends Fragment {
         ll.setLayoutParams(new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT, 1.0f));
         ll.setOrientation(LinearLayout.VERTICAL);
 
-        Timetable t = (Timetable) getArguments().getSerializable("tt");
-        if (t == null) return v;
-
-
-        for (int j = 0; j < 8; j++) {
-
-            LessonCellView view = t.getViewForPosition(day,j);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT, 1.0f));
-            //view.invalidate();
-            ((ViewGroup) v).addView(view);
-        }
+        ViewGroup contentGroup = (ViewGroup) v;
+        updateView(contentGroup);
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewGroup contentGroup = (ViewGroup) getView();
+        //updateView(contentGroup);
+    }
+
+    void updateView(ViewGroup v){
+        if (t == null) return;
+
+        for (int j = 0; j < 8; j++) {
+            LessonCellView view = t.getViewForPosition(day,j);
+            view.setLayoutParams(new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT, 1.0f));
+            v.addView(view);
+        }
     }
 }

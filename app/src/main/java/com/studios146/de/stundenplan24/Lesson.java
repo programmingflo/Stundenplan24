@@ -1,5 +1,7 @@
 package com.studios146.de.stundenplan24;
 
+import java.io.Serializable;
+
 /**
  * Created by FM on 03.05.2017.
  *

@@ -38,10 +38,7 @@ final class SchedulePagerAdapter extends FragmentPagerAdapter {
         column.day = position;
         column.t = this.t;
 
-        Bundle args = new Bundle();
-        args.putSerializable("tt", t);
-
-        column.setArguments(args);
+        column.setTimetable(t);
 
         return column;
     }
