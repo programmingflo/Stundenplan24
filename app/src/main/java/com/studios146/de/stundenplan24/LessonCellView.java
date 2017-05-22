@@ -2,6 +2,9 @@ package com.studios146.de.stundenplan24;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,15 +50,4 @@ public class LessonCellView extends LinearLayout {
         roomTextView.setText(lesson.raum);
         infoTextView.setText(lesson.info);
     }
-
-    /*protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
-
-        //this.setLayoutParams(new TableRow.LayoutParams(parentWidth,parentHeight / 8));
-
-        //setMeasuredDimension(parentWidth, parentHeight);
-    }*/
 }

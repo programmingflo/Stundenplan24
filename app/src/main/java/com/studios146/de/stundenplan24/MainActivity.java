@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -73,6 +76,10 @@ public class MainActivity extends AppCompatActivity{
             Log.d("146s.main.66","schedule "+schedule[i]);
         }*/
         //SharedPreferences schedulePreferences = this.getSharedPreferences("schedule", Context.MODE_PRIVATE);
+
+        HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.scroll);
+
+        scrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
         ScheduleTableLayout scheduleTable = (ScheduleTableLayout) findViewById(R.id.schedule_main);
         scheduleTable.setTimetable(new Timetable(this.context));
