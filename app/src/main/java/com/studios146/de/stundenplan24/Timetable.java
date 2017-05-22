@@ -22,6 +22,6 @@ final class Timetable {
     }
 
     Lesson getLessonForPosition(int position){
-        return new Lesson(0,"1",Integer.toString(position+1),"Deu","VOG","S207","");
+        return new Lesson(0,"1",Integer.toString(position+1),"Deu","VOG","S207","Info");
     }
 }

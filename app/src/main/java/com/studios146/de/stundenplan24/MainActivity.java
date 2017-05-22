@@ -17,7 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,6 +96,10 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
             Log.d("com.146s.main", e.toString());
         }
+
+        HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.scroll);
+
+        scrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
         ScheduleTableLayout scheduleTable = (ScheduleTableLayout) findViewById(R.id.schedule_main);
         scheduleTable.setTimetable(new Timetable(this.context));

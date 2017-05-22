@@ -2,7 +2,10 @@ package com.studios146.de.stundenplan24;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -10,8 +13,9 @@ import android.widget.TextView;
  * Provides custom view to use in main GridView
  */
 
-public class LessonCellView extends RelativeLayout {
+public class LessonCellView extends LinearLayout {
     private Lesson lesson;
+    private Context context;
 
     TextView lessonTextView;
     TextView subjectTextView;
@@ -21,11 +25,12 @@ public class LessonCellView extends RelativeLayout {
 
     public LessonCellView(Context context, AttributeSet attrs){
         super(context, attrs);
+        this.context = context;
         init();
     }
 
     private void init() {
-        inflate(getContext(), R.layout.lesson_cell_view, this);
+        inflate(context, R.layout.lesson_cell_view, this);
         this.lessonTextView = (TextView)findViewById(R.id.lessonTextView);
         this.subjectTextView = (TextView)findViewById(R.id.subjectTextView);
         this.teacherTextView = (TextView)findViewById(R.id.teacherTextView);
