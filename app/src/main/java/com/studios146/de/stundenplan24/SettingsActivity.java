@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,10 +64,41 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             this.arraySchoolIDs = new String[]{""};
         }
 
+        /*Create Spinner and select item*/
         Spinner spinner = (Spinner) findViewById(R.id.spinnerSchools);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arraySchools);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
+
+        final SharedPreferences preferences = this.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String schoolID = preferences.getString("schoolID","");
+        Integer index = 0;
+        Log.d("146s.set","schoolID: "+schoolID);
+        for (int i=0; i<arraySchoolIDs.length;i++){
+            if(schoolID.equals(arraySchoolIDs[i])){
+                index = i;
+            }
+        }
+        String schoolName = arraySchools[index];
+        if(!schoolID.isEmpty()){
+            int spinnerPosition = arrayAdapter.getPosition(schoolName);
+            spinner.setSelection(spinnerPosition);
+        }
+
+        //Create EditText and saveButton for Klasse
+        final EditText editTextKlasse = (EditText) findViewById(R.id.editTextKlasse);
+        editTextKlasse.setText(preferences.getString("klasse",""));
+        Button saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("klasse",editTextKlasse.getText().toString());
+                editor.apply();
+                Toast toast = Toast.makeText(getApplicationContext(),"Gespeichert!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override

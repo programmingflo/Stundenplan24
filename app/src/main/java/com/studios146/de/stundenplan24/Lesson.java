@@ -23,7 +23,8 @@ class Lesson {
      * @param raum Raum
      * @param info Info
      */
-    Lesson(long id, String klasse, String stunde, String fach, String lehrer, String raum, String info) {
+    Lesson(long id, String klasse, String stunde, String fach,
+           String lehrer, String raum, String info) {
         this.id = id;
         this.klasse = klasse;
         this.stunde = stunde;
@@ -31,5 +32,11 @@ class Lesson {
         this.lehrer = lehrer;
         this.raum = raum;
         this.info = info;
+    }
+
+    @Override
+    public String toString(){
+        return this.id+","+this.klasse+","+this.stunde+","+this.fach+","+this.lehrer+","+
+                this.raum+","+this.info;
     }
 }
