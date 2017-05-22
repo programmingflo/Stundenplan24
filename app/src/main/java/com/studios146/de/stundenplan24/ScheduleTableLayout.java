@@ -43,7 +43,7 @@ public class ScheduleTableLayout extends LinearLayout {
             tableColoumn.setOrientation(LinearLayout.VERTICAL);
 
             for (int j = 0; j < 8; j++) {
-                LessonCellView view = timetable.getViewForPosition(j);
+                LessonCellView view = timetable.getViewForPosition(i,j);
                 view.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f));
                 //view.invalidate();
                 tableColoumn.addView(view);

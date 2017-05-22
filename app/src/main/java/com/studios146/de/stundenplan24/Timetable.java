@@ -15,13 +15,13 @@ final class Timetable {
         this.context = c;
     }
 
-    LessonCellView getViewForPosition(int position){
+    LessonCellView getViewForPosition(int day, int hour){
         LessonCellView l = new LessonCellView(context, null);
-        l.setLesson(getLessonForPosition(position));
+        l.setLesson(getLessonForPosition(day,hour));
         return l;
     }
 
-    Lesson getLessonForPosition(int position){
-        return new Lesson(0,"1",Integer.toString(position+1),"Deu","VOG","S207","Info");
+    Lesson getLessonForPosition(int day, int hour){
+        return new Lesson(0,"1",Integer.toString(hour+1),"Deu","VOG","S207","Info");
     }
 }
