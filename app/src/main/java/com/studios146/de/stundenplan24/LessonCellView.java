@@ -39,7 +39,12 @@ public class LessonCellView extends LinearLayout {
     }
 
     public void setLesson(Lesson lesson){
-        this.lesson = lesson;
+        if(lesson != null){
+            this.lesson = lesson;
+        }else{
+            this.lesson = new Lesson(1,"11.2","0","0","-","-","-","-");
+        }
+
         draw();
     }
 
@@ -48,6 +53,7 @@ public class LessonCellView extends LinearLayout {
         subjectTextView.setText(lesson.fach);
         teacherTextView.setText(lesson.lehrer);
         roomTextView.setText(lesson.raum);
-        infoTextView.setText(lesson.info);
+        //infoTextView.setText(lesson.info);
+        infoTextView.setText("");
     }
 }

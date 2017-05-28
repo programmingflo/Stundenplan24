@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,33 +42,21 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
     Context context = this;
-    private ScheduleDataSource dataSource;
+    ScheduleDataSource dataSource;
     String LOG_TAG = "146s/"+MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*set Activity background
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        ImageView view = (ImageView) findViewById(R.id.backgroundImageView);
-        String backgroundPath = "http://www.carolinum.net/assets/images/5/schlossallee-1bd6a535.jpg";
-        String error="";
-        try{
-            InputStream inputStream = (InputStream) new URL(backgroundPath).getContent();
-            Drawable drawable = Drawable.createFromStream(inputStream,"146Programming");
-            if(drawable!= null) {
-                view.setBackground(drawable);
-                view.setScaleType(ImageView.ScaleType.CENTER);
-            }
-        }catch (IOException ex){
-            Log.d(LOG_TAG+"/background",ex.getMessage());
-            error = ex.getMessage();
-        }*/
         super.onCreate(savedInstanceState);
         //setContentView(view);
         setContentView(R.layout.activity_main);
         //Log.d(LOG_TAG+"/background","error: "+error);
+
+        dataSource = new ScheduleDataSource(context);
+        dataSource.open();
+        //Lesson exampleLesson = dataSource.createLesson(new Lesson(0,"11deu2","1","1","deu","ROL","S002",""));
+        //Log.d("146s/Main","exampleLesson: "+exampleLesson.toString());
+        dataSource.close();
 
         ServerConnection serverConnection = new ServerConnection(this);
 
@@ -98,11 +87,19 @@ public class MainActivity extends AppCompatActivity{
             Log.d("com.146s.main", e.toString());
         }
 
+        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_location);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadTimetable();
+            }
+        });
+
         /*HorizontalScrollView scrollView = (HorizontalScrollView) findViewById(R.id.scroll);
 
         scrollView.getChildAt(0).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));*/
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_main);
+        /*ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_main);
         SchedulePagerAdapter schedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager());
         schedulePagerAdapter.setTimetable(new Timetable(this.context));
 
@@ -112,21 +109,46 @@ public class MainActivity extends AppCompatActivity{
                 @Override
                 public void onPageSelected(int position) {
                     setTitle(getResources().getStringArray(R.array.weekdays)[position]);
+                    //TODO: add actual date
                 }
             }
-        );
-
+        );*/
+        loadTimetable();
 
         List<Lesson> substituteLessons = convertJSONtoLesson(jsonPlan);
         for(Lesson substituteLesson:substituteLessons) {
             Log.d(LOG_TAG, "substituteLesson: " + substituteLesson.toString());
         }
+        try {
+            Object lock = new Object();
+            synchronized (lock) {
+                lock.wait(2000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        loadTimetable();
     }
 
-    private void showAllListEntries(){
-        List<Lesson> lessonList = dataSource.getAllLessons();
+    public void loadTimetable(){
+        ViewPager viewPager = (ViewPager) findViewById(R.id.schedule_main);
+        SchedulePagerAdapter schedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager());
+        schedulePagerAdapter.setTimetable(new Timetable(this.context));
 
-        ArrayAdapter<Lesson> lessonArrayAdapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,lessonList);
+        viewPager.setAdapter(schedulePagerAdapter);
+        viewPager.addOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        setTitle(getResources().getStringArray(R.array.weekdays)[position]);
+                        //TODO: add actual date
+                    }
+                }
+        );
+        SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_location);
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     public List<Lesson> convertJSONtoLesson(JSONObject jsonObject){
@@ -137,6 +159,7 @@ public class MainActivity extends AppCompatActivity{
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject jsonLesson = jsonArray.getJSONObject(i);
                 lesson = new Lesson(0,jsonLesson.optString("rawCourse"),
+                        jsonLesson.optString("tag"),
                         jsonLesson.optString("lesson"),jsonLesson.optString("subject"),
                         jsonLesson.optString("teacher"),jsonLesson.optString("room"),
                         jsonLesson.optString("info"));
@@ -144,7 +167,7 @@ public class MainActivity extends AppCompatActivity{
             }
         }catch (Exception ex){
             Log.d(LOG_TAG+"/96",ex.getMessage());
-            lesson = new Lesson(0,null,null,null,null,null,null);
+            lesson = new Lesson(0,null,null,null,null,null,null,null);
             lessonList.add(lesson);
         }
         return lessonList;
