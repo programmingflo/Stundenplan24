@@ -26,9 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/closeButton"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <TextView
-        android:id="@+id/lesson_raum"
+        android:id="@+id/lesson_lehrer"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/lesson_fach"
@@ -36,12 +35,12 @@
         android:layout_toRightOf="@id/lesson_fach"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
     <TextView
-        android:id="@+id/lesson_lehrer"
+        android:id="@+id/lesson_raum"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/lesson_raum"
-        android:layout_toEndOf="@id/lesson_raum"
-        android:layout_toRightOf="@id/lesson_raum"
+        android:layout_alignTop="@id/lesson_fach"
+        android:layout_toEndOf="@id/lesson_lehrer"
+        android:layout_toRightOf="@id/lesson_lehrer"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
     <TextView
         android:id="@+id/lesson_info"
