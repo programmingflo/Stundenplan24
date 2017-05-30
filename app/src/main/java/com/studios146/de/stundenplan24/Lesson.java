@@ -1,6 +1,13 @@
 package com.studios146.de.stundenplan24;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by FM on 03.05.2017.
@@ -10,7 +17,7 @@ import java.io.Serializable;
 class Lesson {
     final long id;
     final String klasse;
-    final String tag;
+    String tag;
     final String stunde;
     String fach;
     String lehrer;
