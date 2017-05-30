@@ -27,22 +27,22 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/lesson_edit_raum"
+        android:id="@+id/lesson_edit_lehrer"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/lesson_edit_fach"
         android:layout_toEndOf="@id/lesson_edit_fach"
         android:layout_toRightOf="@id/lesson_edit_fach"
-        android:hint="@string/raum"
+        android:hint="@string/lehrer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/lesson_edit_lehrer"
+        android:id="@+id/lesson_edit_raum"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/lesson_edit_raum"
-        android:layout_toEndOf="@id/lesson_edit_raum"
-        android:layout_toRightOf="@id/lesson_edit_raum"
-        android:hint="@string/lehrer"
+        android:layout_alignTop="@id/lesson_edit_fach"
+        android:layout_toEndOf="@id/lesson_edit_lehrer"
+        android:layout_toRightOf="@id/lesson_edit_lehrer"
+        android:hint="@string/raum"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>
