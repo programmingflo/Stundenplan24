@@ -87,13 +87,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
         //Create EditText and saveButton for Klasse
         final EditText editTextKlasse = (EditText) findViewById(R.id.editTextKlasse);
-        editTextKlasse.setText(preferences.getString("klasse",""));
+        editTextKlasse.setText(preferences.getString("course",""));
         Button saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("klasse",editTextKlasse.getText().toString());
+                editor.putString("course",editTextKlasse.getText().toString());
                 editor.apply();
                 Toast toast = Toast.makeText(getApplicationContext(),"Gespeichert!", Toast.LENGTH_SHORT);
                 toast.show();
