@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -68,7 +69,20 @@ public class MainActivity extends AppCompatActivity{
         SchedulePagerAdapter schedulePagerAdapter = new SchedulePagerAdapter(getSupportFragmentManager());
         schedulePagerAdapter.setTimetable(new Timetable(this.context));
 
+        Integer day;
+        switch (Calendar.DAY_OF_WEEK){
+            case Calendar.MONDAY : day = 1; break;
+            case Calendar.TUESDAY : day = 2; break;
+            case Calendar.WEDNESDAY : day = 3; break;
+            case Calendar.THURSDAY : day = 4; break;
+            case Calendar.FRIDAY : day = 5; break;
+            case Calendar.SATURDAY : day = 1; break;
+            case Calendar.SUNDAY : day = 1; break;
+            default: day = 1; break;
+        }
+
         viewPager.setAdapter(schedulePagerAdapter);
+        viewPager.setCurrentItem(day);
         viewPager.addOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
                     @Override
