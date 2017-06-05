@@ -1,28 +1,19 @@
 package com.studios146.de.stundenplan24;
 
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by FM on 03.05.2017.
  *
  */
 
 class Lesson {
-    final long id;
-    final String klasse;
+    long id;
+    String klasse;
     String tag;
-    final String stunde;
+    String stunde;
     String fach;
     String lehrer;
     String raum;
-    final String info;
+    String info;
 
     /**
      * @param id ID
