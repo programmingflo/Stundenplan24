@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="240dp" android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/lesson_edit_klasse"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/klasse"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     <ImageButton
         android:id="@+id/saveEditButton"
         android:layout_width="30dp"

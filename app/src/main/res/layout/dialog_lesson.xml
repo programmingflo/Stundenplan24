@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="240dp"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/lesson_klasse"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/klasse"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
     <ImageButton
         android:id="@+id/editButton"
         android:layout_width="30dp"
