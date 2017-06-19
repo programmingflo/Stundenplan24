@@ -70,16 +70,23 @@ public class MainActivity extends AppCompatActivity{
         schedulePagerAdapter.setTimetable(new Timetable(this.context));
 
         Integer day;
+        Calendar calendar = Calendar.getInstance();
         switch (Calendar.DAY_OF_WEEK){
-            case Calendar.MONDAY : day = 1; break;
-            case Calendar.TUESDAY : day = 2; break;
-            case Calendar.WEDNESDAY : day = 3; break;
-            case Calendar.THURSDAY : day = 4; break;
-            case Calendar.FRIDAY : day = 5; break;
-            case Calendar.SATURDAY : day = 1; break;
-            case Calendar.SUNDAY : day = 1; break;
-            default: day = 1; break;
+            case Calendar.MONDAY : day = 0; break;
+            case Calendar.TUESDAY : day = 1; break;
+            case Calendar.WEDNESDAY : day = 2; break;
+            case Calendar.THURSDAY : day = 3; break;
+            case Calendar.FRIDAY : day = 4; break;
+            case Calendar.SATURDAY : day = 0; break;
+            case Calendar.SUNDAY : day = 0; break;
+            default: day = 0; break;
         }
+
+        if(calendar.get(Calendar.HOUR_OF_DAY) >= 15){
+            day++;
+        }
+        day = day % 7;
+        Log.d(LOG_TAG,"day="+day);
 
         viewPager.setAdapter(schedulePagerAdapter);
         viewPager.setCurrentItem(day);
