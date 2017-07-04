@@ -11,9 +11,11 @@ import java.util.List;
 
 /**
  * Created by FM on 03.05.2017.
+ *
+ * Connection with local database
  */
 
-public class ScheduleDataSource {
+class ScheduleDataSource {
     private static final String LOG_TAG = "146s/"+ ScheduleDbHelper.class.getSimpleName();
 
     private SQLiteDatabase database;
@@ -29,13 +31,13 @@ public class ScheduleDataSource {
             ScheduleDbHelper.COLUMN_RAUM
     };
 
-    public ScheduleDataSource(Context context){
+    ScheduleDataSource(Context context){
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new ScheduleDbHelper(context);
         database = dbHelper.getWritableDatabase();
         dbHelper.onCreate(database);
     }
-    public void open(){
+    void open(){
         dbHelper.close();
 
         Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
@@ -43,12 +45,12 @@ public class ScheduleDataSource {
         //dbHelper.onOpen(database);
         Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
     }
-    public void close(){
+    void close(){
         dbHelper.close();
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
 
     }
-    public Lesson createLesson(Lesson lesson){
+    Lesson createLesson(Lesson lesson){
         open();
         ContentValues values = new ContentValues();
         values.put(ScheduleDbHelper.COLUMN_KLASSE, lesson.klasse);
@@ -93,11 +95,9 @@ public class ScheduleDataSource {
         String lehrer = cursor.getString(idLehrer);
         String raum = cursor.getString(idRaum);
 
-        Lesson lesson = new Lesson(id,klasse,tag,stunde,fach,lehrer,raum,null);
-
-        return lesson;
+        return new Lesson(id,klasse,tag,stunde,fach,lehrer,raum,null,false);
     }
-    public Lesson[] getAllLessons(){
+    Lesson[] getAllLessons(){
         List<Lesson> lessonList = new ArrayList<>();
 
         open();
@@ -119,7 +119,7 @@ public class ScheduleDataSource {
 
         return lessonList.toArray(new Lesson[lessonList.size()]);
     }
-    public Lesson saveLesson(Lesson lesson){
+    Lesson saveLesson(Lesson lesson){
         open();
         ContentValues values = new ContentValues();
         values.put(ScheduleDbHelper.COLUMN_KLASSE, lesson.klasse);
@@ -140,7 +140,7 @@ public class ScheduleDataSource {
         close();
         return lesson2;
     }
-    public boolean tableExists(String tableName) {
+    boolean tableExists(String tableName) {
         Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
         if(cursor!=null) {
             if(cursor.getCount()>0) {
