@@ -8,7 +8,7 @@
     <string name="fach">Fach</string>
     <string name="raum">Raum</string>
     <string name="lehrer">Lehrer</string>
-    <string name="klasse">Klasse</string>
+    <string name="klasse">Klasse/Kurs</string>
 
     <string-array
         name="weekdays">
