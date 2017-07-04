@@ -1,10 +1,8 @@
 package com.studios146.de.stundenplan24;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,13 +40,20 @@ public class LessonCellView extends LinearLayout {
         if(lesson != null){
             this.lesson = lesson;
         }else{
-            this.lesson = new Lesson(1,"11.2","0","0","-","-","-","-");
+            this.lesson = new Lesson(1,"11.2","0","0","-","-","-","-",false);
         }
 
         draw();
     }
 
     public void draw(){
+        if(lesson.substituted){
+            lessonTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+            subjectTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+            teacherTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+            roomTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+            infoTextView.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
+        }
         lessonTextView.setText(lesson.stunde);
         subjectTextView.setText(lesson.fach);
         teacherTextView.setText(lesson.lehrer);
