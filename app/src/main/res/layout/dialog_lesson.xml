@@ -5,8 +5,8 @@
 
     <TextView
         android:id="@+id/lesson_klasse"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
         android:contentDescription="@string/klasse"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
     <ImageButton
@@ -30,7 +30,7 @@
         android:id="@+id/lesson_fach"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/closeButton"
+        android:layout_below="@id/lesson_klasse"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
         android:id="@+id/lesson_lehrer"
