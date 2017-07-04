@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="240dp" android:layout_height="wrap_content">
     <EditText
         android:id="@+id/lesson_edit_klasse"
-        android:layout_width="80dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:hint="@string/klasse"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -28,7 +28,7 @@
         android:id="@+id/lesson_edit_fach"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/closeEditButton"
+        android:layout_below="@id/lesson_edit_klasse"
         android:hint="@string/fach"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
