@@ -14,14 +14,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -37,6 +35,7 @@ final class Timetable implements Serializable{
     private List<Lesson> substituteLessons;
     //TODO: save old substitute json for actual day
 
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     Timetable(Context c){
         this.context = c;
         this.scheduleDataSource = new ScheduleDataSource(context);
@@ -51,7 +50,7 @@ final class Timetable implements Serializable{
             }else{
                 for(int i = 0; i<=4;i++){
                     for(int j = 0; j<=7;j++) {
-                        scheduleDataSource.createLesson(new Lesson(0,"-", String.valueOf(i+1), String.valueOf(j+1), "-", "-", "-",""));
+                        scheduleDataSource.createLesson(new Lesson(0,"-", String.valueOf(i+1), String.valueOf(j+1), "-", "-", "-","",false));
                     }
                 }
             }
@@ -139,7 +138,7 @@ final class Timetable implements Serializable{
                         editDialog.setContentView(R.layout.edit_lesson);
 
                         //set content
-                        EditText klasseEditView = (EditText) editDialog.findViewById(R.id.lesson_edit_klasse);
+                        final EditText klasseEditView = (EditText) editDialog.findViewById(R.id.lesson_edit_klasse);
                         klasseEditView.setText(lesson2.klasse);
                         final EditText fachEditView = (EditText) editDialog.findViewById(R.id.lesson_edit_fach);
                         fachEditView.setText(lesson2.fach);
@@ -154,26 +153,26 @@ final class Timetable implements Serializable{
                             @Override
                             public void onClick(View v) {
                                 //save Input
+                                lesson2.klasse = klasseEditView.getText().toString();
                                 lesson2.fach = fachEditView.getText().toString();
                                 lesson2.raum = raumEditView.getText().toString();
                                 lesson2.lehrer = lehrerEditView.getText().toString();
 
-                                //TODO: get correct course
                                 SharedPreferences preferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
                                 String generalcourse = preferences.getString("course","");
                                 Log.d(LOG_TAG,"generalcourse="+generalcourse);
-                                if(generalcourse.isEmpty()){
-                                    lesson2.klasse = lesson2.fach;
-                                }else{
+                                if(lesson2.klasse.isEmpty()){
                                     lesson2.klasse = generalcourse;
                                 }
 
+                                Lesson lessonReturn;
                                 if(lesson2.id != 0) {
-                                    scheduleDataSource.saveLesson(lesson2);
+                                    lessonReturn = scheduleDataSource.saveLesson(lesson2);
                                 }else{
-                                    scheduleDataSource.createLesson(lesson2);
+                                    lessonReturn = scheduleDataSource.createLesson(lesson2);
                                 }
                                 lessons[day][hour] = lesson2;
+                                Log.d(LOG_TAG,"Saved lesson in database: "+lessonReturn.toString());
                                 //TODO: refresh gui
                                 editDialog.dismiss();
                             }
@@ -202,10 +201,11 @@ final class Timetable implements Serializable{
     }
 
     private Lesson integrateSubstitution(Lesson lesson) {
+        //TODO: increase efficiency
         Log.d(LOG_TAG,"lesson:"+lesson.toString());
         if(!lesson.klasse.equals("")) {
             for (Lesson substitute : substituteLessons) {
-                Log.d(LOG_TAG, "substitute:" + substitute.toString());
+                //Log.d(LOG_TAG, "substitute:" + substitute.toString());
                 if(substitute.klasse != null) {
                     if (substitute.klasse.contains(lesson.klasse) &&
                             (substitute.tag.equals(lesson.tag) && substitute.stunde.equals(lesson.stunde))) {
@@ -225,7 +225,7 @@ final class Timetable implements Serializable{
             lesson = lessons[day][hour];
         }
         if (lesson == null){
-            lesson = new Lesson(0, "1", Integer.toString(day + 1), Integer.toString(hour + 1), "-", "-", "-", "-");
+            lesson = new Lesson(0, "1", Integer.toString(day + 1), Integer.toString(hour + 1), "-", "-", "-", "-",false);
         }
         return lesson;
     }
@@ -235,25 +235,23 @@ final class Timetable implements Serializable{
         Lesson lesson;
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("lessons");
-            //TODO: get Day
             String day = String.valueOf(getDay(jsonObject.optString("forDate","1")));
             Log.d(LOG_TAG,"forDay: "+day);
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject jsonLesson = jsonArray.getJSONObject(i);
-                lesson = new Lesson(0,jsonLesson.optString("rawCourse","1"),
+                lesson = new Lesson(0,jsonLesson.optString("rawCourse","---"),
                         day,
-                        jsonLesson.optString("lesson","1"),
-                        jsonLesson.optString("subject","1"),
-                        jsonLesson.optString("teacher","1"),
-                        jsonLesson.optString("room","1"),
-                        jsonLesson.optString("info","1"));
+                        jsonLesson.optString("lesson","---"),
+                        jsonLesson.optString("subject","---"),
+                        jsonLesson.optString("rawTeacher","---"),
+                        jsonLesson.optString("room","---"),
+                        jsonLesson.optString("info","---"),
+                        true);
                 lessonList.add(lesson);
             }
-            //JSONObject jsonDay = jsonObject.getJSONObject("forDay");
-
         }catch (Exception ex){
             Log.d(LOG_TAG,ex.getMessage());
-            lesson = new Lesson(0,null,null,null,null,null,null,null);
+            lesson = new Lesson(0,null,null,null,null,null,null,null,false);
             lessonList.add(lesson);
         }
         return lessonList;
@@ -261,7 +259,7 @@ final class Timetable implements Serializable{
     private int getDay(String unixString){
         Date date = new Date(Long.parseLong(unixString));
         Log.d(LOG_TAG,"Date from Timestamp="+date);
-        SimpleDateFormat sdf = new SimpleDateFormat("u", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("F", Locale.US);
         Integer day = Integer.parseInt(sdf.format(date));
 
         if(day > 5){
